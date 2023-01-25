@@ -4,10 +4,7 @@ package com.nerdware.springbackend.controller;
 import com.nerdware.springbackend.Entity.Buyer;
 import com.nerdware.springbackend.service.BuyerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +26,21 @@ public class BuyerController {
     @GetMapping("/{id}")
     public Buyer getBuyerById(@RequestParam Long id) {
         return buyerService.getBuyerById(id);
+    }
+
+    @PostMapping()
+    public void addBuyer(@RequestBody Buyer buyer) {
+        buyerService.addBuyer(buyer);
+    }
+
+    @PutMapping("/{id}")
+    public void updateBuyer(@RequestBody Buyer buyer, @RequestParam Long id) {
+        buyerService.updateBuyer(buyer, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteBuyer(@RequestParam Long id) {
+        buyerService.deleteBuyer(id);
     }
 
 

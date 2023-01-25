@@ -25,4 +25,24 @@ public class BuyerService {
     public Buyer getBuyerById(Long id) {
         return buyerRepository.findById(id).orElseThrow(() -> new IllegalStateException("Buyer with id " + id + " does not exist"));
     }
+
+    public void addBuyer(Buyer buyer) {
+        buyerRepository.save(buyer);
+    }
+
+//editable
+    public void updateBuyer(Buyer buyer, Long id) {
+        buyerRepository.findById(buyer.getId())
+                .ifPresent(user1 -> {
+                    buyerRepository.save(buyer);
+                });
+    }
+
+    public void deleteBuyer(Long id) {
+        boolean exists = buyerRepository.existsById(id);
+        if (!exists) {
+            throw new IllegalStateException("Buyer with id " + id + " does not exist");
+        }
+        buyerRepository.deleteById(id);
+    }
 }

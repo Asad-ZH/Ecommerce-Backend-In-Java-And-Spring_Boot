@@ -3,14 +3,12 @@ package com.nerdware.springbackend.controller;
 
 import com.nerdware.springbackend.Entity.Product;
 import com.nerdware.springbackend.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/product")
+@RequestMapping("/v1/product")
 public class ProductController {
 
     ProductService productService;
@@ -21,9 +19,29 @@ public class ProductController {
 
     @GetMapping
     public List<Product> getAllProducts() {
-
         return productService.getAllProducts();
     }
+
+    @GetMapping("/{id}")
+    public Product getProductById(@RequestParam Long id) {
+        return productService.getProductById(id);
+    }
+
+    @PostMapping
+    public void addProduct(@RequestBody Product product) {
+        productService.addProduct(product);
+    }
+
+    @PutMapping("/{id}")
+    public void updateProduct(@RequestBody Product product, @RequestParam Long id) {
+        productService.updateProduct(product, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@RequestParam Long id) {
+        productService.deleteProduct(id);
+    }
+
 
 
 
