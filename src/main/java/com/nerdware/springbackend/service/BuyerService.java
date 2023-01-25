@@ -21,4 +21,8 @@ public class BuyerService {
     public List<Buyer> getAllBuyers() {
         return buyerRepository.findAll();
     }
+
+    public Buyer getBuyerById(Long id) {
+        return buyerRepository.findById(id).orElseThrow(() -> new IllegalStateException("Buyer with id " + id + " does not exist"));
+    }
 }

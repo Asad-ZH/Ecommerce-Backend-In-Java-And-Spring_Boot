@@ -3,10 +3,10 @@ package com.nerdware.springbackend.Entity;
 import lombok.Data;
 import org.hibernate.annotations.Table;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -27,5 +27,22 @@ public class Favourites {
     )
     private Long id;
 
-//    private List<Product> products = new ArrayList<>();
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(
+            name = "buyer_favourites_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "buyer_favourites_id_fk"
+            )
+    )
+    private Buyer buyer;
+
+    @OneToMany(
+            mappedBy = "favourites",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
+    )
+    private List<Product> products = new ArrayList<>();
 }

@@ -1,8 +1,12 @@
 package com.nerdware.springbackend.Entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -23,6 +27,13 @@ public class Seller {
     )
     private Long id;
 
+    @OneToMany(
+            mappedBy = "seller",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            orphanRemoval = true
+    )
+    private List<Product> products = new ArrayList<>();
+
     private String name;
     private String storeName;
     private String email;
@@ -33,5 +44,7 @@ public class Seller {
     private String province;
     private String country;
     private String zipCode;
+
+
 
 }

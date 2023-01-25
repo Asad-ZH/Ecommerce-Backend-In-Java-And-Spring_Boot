@@ -2,7 +2,6 @@ package com.nerdware.springbackend.Entity;
 
 import lombok.Data;
 import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -23,7 +22,43 @@ public class Product {
             generator = "product_sequence"
     )
     @Id
-    private Long id;
+    private Long Id;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "student_id",
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "seller_product_fk"
+            )
+    )
+    private Seller seller;
+
+    @OneToMany(
+            mappedBy = "product",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            orphanRemoval = true
+    )
+    private List<Review> productReviews;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "favourites_product_id",
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "favourites_product_id"
+            )
+    )
+    private Favourites favourites;
+
+    @OneToOne(
+            mappedBy = "product",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
+    )
+    private OrderDetails orderDetails;
 
     private String title;
     private String description;

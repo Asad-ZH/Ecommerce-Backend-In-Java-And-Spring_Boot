@@ -23,6 +23,19 @@ public class Checkout {
     )
     private Long id;
 
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(
+            name = "checkout_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "checkout_id_fk"
+            )
+    )
+    private OrderDetails orderDetails;
+
     private String firstName;
     private String lastName;
     private String country;

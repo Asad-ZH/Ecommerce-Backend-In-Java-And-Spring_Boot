@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+import java.util.List;
+
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Data
@@ -22,6 +24,27 @@ public class Buyer {
             generator = "buyer_sequence"
     )
     private Long id;
+
+    @OneToMany(
+            mappedBy = "buyer",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            orphanRemoval = true
+    )
+    private List<OrderDetails> orderDetails;
+
+    @OneToMany(
+            mappedBy = "buyer",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            orphanRemoval = true
+    )
+    private List<Review> BuyerReviews;
+
+    @OneToOne(
+            mappedBy = "buyer",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
+    )
+    private Favourites favourites;
 
     private String firstName;
     private String lastName;

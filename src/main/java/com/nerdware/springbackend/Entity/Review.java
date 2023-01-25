@@ -23,6 +23,28 @@ public class Review {
     )
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(
+            name = "buyer_review_id",
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "buyer_review_fk"
+            )
+    )
+    private Buyer buyer;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "product_review_id",
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "product_review_fk"
+            )
+    )
+    private Product product;
+
     private String review;
     private Integer rating;
 }
